@@ -1,0 +1,30 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-primary {
+        @apply flex bg-red-500 text-white px-3 py-1
+    }
+    
+    .btn-outline {
+        @apply flex bg-transparent text-red-400 border border-red-400 px-3 py-1
+    }
+}
+
+@layer utilities {
+    .text-stroke{
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 1px;
+    }
+}
+@supports (-webkit-touch-callout: none) {
+    .h-screen {
+      height: -webkit-fill-available;
+    }
+  }
+
+html{
+    scroll-behavior: smooth;
+}
