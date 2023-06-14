@@ -75,6 +75,7 @@ const entradaHero = () => {
 }
 
 const salidaHero = () => {
+    watch(()=>{});
     $anime.timeline({loop:false})
         .add({
             targets:['.heroWelcome','.location','.swipeDown','.idiomas'],
@@ -91,11 +92,10 @@ const salidaHero = () => {
         },'-=200')
         .add({
             targets: '.logo path',
-            strokeDashoffset: [0, $anime.setDashoffset],
+            strokeDashoffset: [$anime.setDashoffset],
             easing: 'easeOutInSine',
             delay: (el, i) => 320 * i,
-            direction: 'reverse',
-            duration: 800
+            duration: 600,
         },400)
         .add({
             targets: 'main',
@@ -103,8 +103,9 @@ const salidaHero = () => {
             easing: 'easeInQuad',
             duration:700,
             complete: () => isHome.value = false
-        },'-=10')
+        },2000)
 }
+
 
 // Observamos Scroll
 
@@ -112,7 +113,7 @@ watch(y, () => scroll())
 
 function scroll (){
     let limit = 20;
-    if(y.value < limit){
+    if(y.value > limit){
         salidaHero()
     }
 }
