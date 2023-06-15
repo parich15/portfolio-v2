@@ -59,7 +59,7 @@
                 </h4>
                 <div class="flex items-center justify-center mt-2 lg:mt-0 lg:ml-auto">
                     <div class="w-1 h-1 rounded-full bg-green-500 animate-pulse lg:w-2 lg:h-2"></div>
-                    <span class="ml-2 text-xs font-light lg:text-base">Now available</span>
+                    <span class="ml-2 text-xs font-light lg:text-base">Available</span>
                 </div>
 
             </div>

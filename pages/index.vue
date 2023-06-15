@@ -3,15 +3,15 @@
         <div class="fixed top-0 z-50">
             <h3 class="text-white">{{ y }}</h3>
         </div>
-            <InicioHero v-show="isHome"></InicioHero>
-            <InicioMenu @back="entradaHero" v-show="!isHome"></InicioMenu>
+        <InicioHero v-show="isHome"></InicioHero> -->
+        <InicioMenu @back="salidaMenu" v-show="!isHome"></InicioMenu>
     </main>
 </template>
 
 <script setup>
-import { useWindowScroll } from '@vueuse/core'
+import { useWindowScroll, useDebounceFn } from '@vueuse/core'
 const { y } = useWindowScroll()
-const {$anime} = useNuxtApp();
+const { $anime } = useNuxtApp();
 const isHome = ref(true);
 
 // Animaciones
@@ -21,19 +21,19 @@ const entradaHero = () => {
         targets: 'main',
         backgroundColor: '#020617',
         easing: 'easeInQuad',
-        duration:3000,
+        duration: 3000,
         direction: 'normal'
     })
-    
-    $anime.timeline({ loop: false})
-    .add({
-        targets: '.heroWelcome .letra',
-        opacity: [0, 1],
-        translateZ: 0,
-        duration: 1000,
-        easing: "easeInOutQuad",
-        delay: (el, i) => 150 * (i + 1),
-        begin: () => document.querySelector('#Hero').style = ""
+
+    $anime.timeline({ loop: false })
+        .add({
+            targets: '.heroWelcome .letra',
+            opacity: [0, 1],
+            translateZ: 0,
+            duration: 1000,
+            easing: "easeInOutQuad",
+            delay: (el, i) => 150 * (i + 1),
+            begin: () => document.querySelector('#Hero').style = ""
         }, '-=100')
         .add({
             targets: '.logo path',
@@ -75,11 +75,10 @@ const entradaHero = () => {
 }
 
 const salidaHero = () => {
-    watch(()=>{});
-    $anime.timeline({loop:false})
+    $anime.timeline({ loop: false })
         .add({
-            targets:['.heroWelcome','.location','.swipeDown','.idiomas'],
-            opacity: [1,0],
+            targets: ['.heroWelcome', '.location', '.swipeDown', '.idiomas'],
+            opacity: [1, 0],
             easing: 'easeOutQuad',
             duration: 500
         })
@@ -88,45 +87,91 @@ const salidaHero = () => {
             fill: "rgba(0, 0, 0, 0)",
             easing: 'easeOutCubic',
             delay: (el, i) => 250 * i,
-            duration:800
-        },'-=200')
+            duration: 800
+        }, '-=200')
         .add({
             targets: '.logo path',
             strokeDashoffset: [$anime.setDashoffset],
             easing: 'easeOutInSine',
             delay: (el, i) => 320 * i,
             duration: 600,
-        },400)
+        }, 400)
         .add({
             targets: 'main',
-            backgroundColor: "#ef4444",
+            backgroundColor: "#000",
             easing: 'easeInQuad',
-            duration:700,
-            complete: () => isHome.value = false
-        },2000)
+            duration: 1400,
+            complete: () => entradaMenu()
+        }, 2000)
 }
 
+const entradaMenu = () => {
+    isHome.value = false
+    $anime.timeline({ duration: 4000 }).add({
+        targets: '.fondoMenu',
+        opacity: [0, 1],
+        backgroundSize: ['17vmin 17vmin', '12vmin 12vmin'],
+        backgroundPosition: ['0% 50%', '10% -10%'],
+        easing: 'easeInOutSine',
+    })
+        .add({
+            targets: '.enlaces .enlace',
+            opacity: [0, 1],
+            easing: 'linear',
+            delay: (el, i) => i * 250,
+            duration: 2000
+        }, 1500).add({
+            targets: '.separador',
+            opacity: [1, 0.4],
+            scaleX: ['0%', '100%'],
+            easing: 'easeInExpo',
+            duration: 3500
+        }, 0).add({
+            targets: ['.email', '.rrss', '.secundarios'],
+            opacity: [0, 1],
+            easing: 'easeInSine',
+            duration: 800
+        })
+}
+
+const salidaMenu = () => {
+    $anime.timeline({duration:2500}).add({
+        targets: ['.enlaces .enlace', '.email', '.rrss', '.secundarios', '.fondoMenu'],
+        opacity: [1, 0],
+        easing: 'linear',
+        delay: (el, i) => i * 250,
+        duration: 2000
+    }).add({
+        targets: '.separador',
+        opacity: [0.4, 1],
+        scaleX: ['100%', '0%'],
+        easing: 'easeOutExpo',
+        complete: () => entradaHero()
+    }, 250)
+}
 
 // Observamos Scroll
 
 watch(y, () => scroll())
 
-function scroll (){
-    let limit = 20;
-    if(y.value > limit){
+const scroll = () => {
+    if (isHome.value != true) {
+        return
+    }
+    if (y.value > 20) {
         salidaHero()
     }
 }
 
-onMounted(()=>{
+onMounted(() => {
     // Fundido a negro on start
     entradaHero()
-    
+    // entradaMenu()
 })
 
 
-    
-    
+
+
 
 </script>
 

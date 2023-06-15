@@ -1,10 +1,10 @@
 <template>
-    <div class="relative h-screen overflow-hidden z-0">
-        <div class="fondoMenu absolute w-screen h-screen top-0 left-0 -z-10"></div>
-        <div class=" relative z-10 px-10 pt-20 container flex flex-col justify-between h-full">
+    <div id="Menu" class="relative z-0">
+        <div class="fondoMenu opacity-0 absolute w-screen h-screen top-0 left-0 -z-10"></div>
+        <div class=" relative z-10 container flex flex-col justify-between h-[calc(100dvh)]">
             <!-- Boton atras -->
-            <div class="inline-block">
-                <button @click="$emit('back')" class="flex items-center backButton ">
+            <div class="inline-block secundarios mx-3">
+                <button @click="$emit('back')" class="flex items-center backButton mt-10 opacity-60">
                     <ChevronDoubleLeftIcon class="h-5 w-5 text-white mr-2"></ChevronDoubleLeftIcon>
                     <span class=" font-primary font-light text-white text-sm">Back to presentation</span>
                 </button>
@@ -12,16 +12,18 @@
 
             <!-- Enlaces -->
 
-            <div class="flex flex-col">
-                <ul class="enlaces ml-4 font-primary font-semibold text-5xl text-white" v-for="enlace in Enlaces" :key="enlace.id">
-                    <li class="relative my-16 enlace after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-1 after:rounded-full after:bottom-0 after:left-0 after:origin-bottom-left hover:after:scale-x-100 hover:after:origin-bottom-right">{{enlace.texto}}</li>
+            <div class="flex flex-col mx-4">
+                <ul class="enlaces  font-primary font-semibold text-5xl text-white" v-for="enlace in Enlaces" :key="enlace.id">
+                    <li class="opacity-0 enlace my-7 py-3 relative inline-block transition-all w-max before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-black/70 before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:before:bg-red-500 before:rounded-sm ">
+                        <a href="#">{{enlace.texto}}</a>
+                    </li>
                 </ul>
             </div>
 
             <!-- Footer -->
             <div id="footer">
-                <div class="separador h-0.5 w-full bg-white"></div>
-                <div class="py-3 px-1">
+                <div class="separador h-0.5 scale-x-0 bg-white origin-center transition-transform"></div>
+                <div class="pt-3 pb-3 px-3">
                     <div class="flex justify-between items-center">
                             <div class="email">
                                 <a class="flex font-primary font-light items-center text-white text-xs">
@@ -38,7 +40,7 @@
                             </div>
                     </div>
 
-                    <div class="flex justify-between items-center my-3 text-white">
+                    <div class="secundarios flex justify-between items-center my-4 text-white">
                         <h5 class="font-display text-sm">Paric.io</h5>
                         <p class="text-xs font-light font-primary">2018 - {{new Date().getFullYear()}}. All rights reserved</p>
                     </div>
@@ -79,6 +81,7 @@ const Enlaces = [
         rgba(2225, 255, 255,  0.1) 9%,
         transparent 9%
     );
+    background-color: rgba(0, 0, 0, 0.342);
     background-position: 0% 0%;
     background-size: 12vmin 12vmin
 }
