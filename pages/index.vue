@@ -1,9 +1,6 @@
 <template>
-    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0">
-        <div class="fixed top-0 z-50">
-            <h3 class="text-white">{{ y }}</h3>
-        </div>
-        <InicioHero v-show="isHome"></InicioHero> -->
+    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out duration-1000">
+        <InicioHero v-show="isHome"></InicioHero> 
         <InicioMenu @back="salidaMenu" v-show="!isHome"></InicioMenu>
     </main>
 </template>
@@ -119,7 +116,7 @@ const entradaMenu = () => {
             opacity: [0, 1],
             easing: 'linear',
             delay: (el, i) => i * 250,
-            duration: 2000
+            duration: 2000,
         }, 1500).add({
             targets: '.separador',
             opacity: [1, 0.4],
@@ -150,10 +147,9 @@ const salidaMenu = () => {
     }, 250)
 }
 
+
 // Observamos Scroll
-
 watch(y, () => scroll())
-
 const scroll = () => {
     if (isHome.value != true) {
         return
