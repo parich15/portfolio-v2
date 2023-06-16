@@ -1,6 +1,6 @@
 <template>
     <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out duration-1000">
-        <InicioHero v-show="isHome"></InicioHero> 
+        <InicioHero v-show="isHome"></InicioHero>
         <InicioMenu @back="salidaMenu" v-show="!isHome"></InicioMenu>
     </main>
 </template>
@@ -74,7 +74,7 @@ const entradaHero = () => {
 const salidaHero = () => {
     $anime.timeline({ loop: false })
         .add({
-            targets: ['.heroWelcome', '.location', '.swipeDown', '.idiomas'],
+            targets: ['.heroWelcome .letra', '.location', '.swipeDown', '.idiomas'],
             opacity: [1, 0],
             easing: 'easeOutQuad',
             duration: 500
@@ -104,47 +104,53 @@ const salidaHero = () => {
 
 const entradaMenu = () => {
     isHome.value = false
-    $anime.timeline({ duration: 4000 }).add({
+    $anime.timeline({ duration: 2500}).add({
         targets: '.fondoMenu',
         opacity: [0, 1],
-        backgroundSize: ['17vmin 17vmin', '12vmin 12vmin'],
-        backgroundPosition: ['0% 50%', '10% -10%'],
+        backgroundPosition: ['0% 40%', '0% 0%'],
         easing: 'easeInOutSine',
+        duration:2000
     })
-        .add({
-            targets: '.enlaces .enlace',
-            opacity: [0, 1],
-            easing: 'linear',
-            delay: (el, i) => i * 250,
-            duration: 2000,
-        }, 1500).add({
-            targets: '.separador',
-            opacity: [1, 0.4],
-            scaleX: ['0%', '100%'],
-            easing: 'easeInExpo',
-            duration: 3500
-        }, 0).add({
-            targets: ['.email', '.rrss', '.secundarios'],
-            opacity: [0, 1],
-            easing: 'easeInSine',
-            duration: 800
-        })
+    .add({
+        targets: '.enlaces .enlace',
+        opacity: [0, 1],
+        easing: 'linear',
+        delay: (el, i) => i * 350,
+        duration: 1500,
+    }, '-=100').add({
+        targets: '.separador',
+        opacity: [1, 0.4],
+        scaleX: ['0%', '100%'],
+        easing: 'easeInExpo',
+    }, 1800).add({
+        targets: ['.email', '.rrss', '.secundarios'],
+        opacity: [0, 1],
+        easing: 'easeInSine',
+        duration: 1000
+    })
 }
 
 const salidaMenu = () => {
-    $anime.timeline({duration:2500}).add({
-        targets: ['.enlaces .enlace', '.email', '.rrss', '.secundarios', '.fondoMenu'],
+    $anime.timeline({duration:2000})
+    .add({
+        targets: ['.fondoMenu'],
+        backgroundPosition: '0% -1000%',
+        opacity: [1,0],
+        easing: 'linear',
+    })
+    .add({
+        targets: ['.enlaces .enlace', '.email', '.rrss', '.secundarios'],
         opacity: [1, 0],
         easing: 'linear',
         delay: (el, i) => i * 250,
-        duration: 2000
-    }).add({
+    },0)
+    .add({
         targets: '.separador',
         opacity: [0.4, 1],
         scaleX: ['100%', '0%'],
         easing: 'easeOutExpo',
         complete: () => entradaHero()
-    }, 250)
+    },0)
 }
 
 

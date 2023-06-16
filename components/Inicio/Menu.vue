@@ -1,8 +1,8 @@
 <template>
     <div id="Menu" class="relative z-0">
-        <div class=" relative z-10 container flex flex-col justify-between h-[calc(100dvh)]">
+        <div class=" relative z-10 container flex flex-col mx-auto justify-between h-[calc(100dvh)]">
             <!-- Boton atras -->
-            <div class="inline-block secundarios mx-3">
+            <div class="inline-block secundarios mx-3 lg:mx-8">
                 <button @click="$emit('back')" class="flex items-center backButton mt-10 opacity-60 transition-opacity hover:opacity-100 group">
                     <ChevronDoubleLeftIcon class="h-4 w-4 text-white mr-2 transition-transform group-hover:scale-105 group-hover:animate-pulse  "></ChevronDoubleLeftIcon>
                     <span class=" font-primary font-light text-white text-sm">Back to presentation</span>
@@ -11,8 +11,8 @@
 
             <!-- Enlaces -->
 
-            <div class="flex flex-col mx-7">
-                <ul class="enlaces font-primary font-semibold text-5xl text-gray-200/50 flex flex-col" >
+            <div class="flex flex-col mx-7 lg:ml-12">
+                <ul class="enlaces font-primary font-semibold text-5xl lg:text-7xl text-gray-200/50 flex flex-col" >
                     <li v-for="enlace in Enlaces" :key="enlace.id"  @mouseenter="cambiarColor(enlace.id)" @mouseleave="resetColor"  class="opacity-1 enlace my-6 py-5 relative inline-block transition-all w-max before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-black/60 before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:before:bg-white/60 before:rounded-sm hover:scale-110 hover:text-white ">
                         <a href="#">{{enlace.texto}}</a>
                     </li>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="fondoMenu opacity-0 absolute w-screen h-screen top-0 left-0 -z-10"></div>
+        <div class="fondoMenu transition-all duration-700 ease-in-out absolute w-screen h-screen top-0 left-0 -z-10"></div>
 
     </div>
 </template>
@@ -82,15 +82,23 @@ const Enlaces = [
 ]
 
 const cambiarColor = (id) => {
+    const main =  document.querySelector('main');
+    const fondo = document.querySelector('.fondoMenu')
     switch (id) {
         case 1:
-            document.querySelector('main').style.backgroundColor = '#172554'
+           main.style.backgroundColor = '#ef4444',
+           fondo.style.backgroundPosition = '0% -20%',
+           fondo.style.boxShadow = 'none'
             break
         case 2:
-            document.querySelector('main').style.backgroundColor = '#ef4444'
+            main.style.backgroundColor = '#172554',
+            fondo.style.backgroundPosition = '0% -50%',
+            fondo.style.boxShadow = 'none'
             break
         case 3:
-            document.querySelector('main').style.backgroundColor = '#1e1b4b'
+            main.style.backgroundColor = '#1e1b4b',
+            fondo.style.backgroundPosition = '0% -100%',
+            fondo.style.boxShadow = 'none'
             break
         default:
             resetColor()
@@ -98,7 +106,8 @@ const cambiarColor = (id) => {
     }
 }
 const resetColor = () => {
-    document.querySelector('main').style = '';
+    document.querySelector('main').style = '',
+    document.querySelector('.fondoMenu').style = ''
 }
 </script>
 
@@ -110,6 +119,7 @@ const resetColor = () => {
     );
     background-color: rgba(0, 0, 0, 0.342);
     background-position: 0% 0%;
-    background-size: 12vmin 12vmin
+    background-size: 15vmin 15vmin;
+    box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 70%);
 }
 </style>
