@@ -107,9 +107,8 @@ const entradaMenu = () => {
     $anime.timeline({ duration: 2500}).add({
         targets: '.fondoMenu',
         opacity: [0, 1],
-        backgroundPosition: ['0% 40%', '0% 0%'],
+        backgroundPosition: ['0% 50%', '0% -10%'],
         easing: 'easeInOutSine',
-        duration:2000
     })
     .add({
         targets: '.enlaces .enlace',
@@ -117,24 +116,29 @@ const entradaMenu = () => {
         easing: 'linear',
         delay: (el, i) => i * 350,
         duration: 1500,
-    }, '-=100').add({
+    }, 1000).add({
         targets: '.separador',
         opacity: [1, 0.4],
         scaleX: ['0%', '100%'],
         easing: 'easeInExpo',
-    }, 1800).add({
+        duration:1500
+    }, 1000).add({
         targets: ['.email', '.rrss', '.secundarios'],
         opacity: [0, 1],
         easing: 'easeInSine',
-        duration: 1000
+        duration: 1000,
+        complete: ()=> setTimeout(() => {
+            document.querySelector('.fondoMenu').classList.add('duration-700', 'ease-in-out')
+        }, 500)
     })
 }
 
 const salidaMenu = () => {
     $anime.timeline({duration:2000})
     .add({
+        begin: () => document.querySelector('.fondoMenu').classList.remove('duration-700', 'ease-in-out'),
         targets: ['.fondoMenu'],
-        backgroundPosition: '0% -1000%',
+        backgroundPosition: '0% -100%',
         opacity: [1,0],
         easing: 'linear',
     })

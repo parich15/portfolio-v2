@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="fondoMenu transition-all duration-700 ease-in-out absolute w-screen h-screen top-0 left-0 -z-10"></div>
+        <div class="fondoMenu transition-all absolute w-screen h-screen top-0 left-0 -z-10"></div>
 
     </div>
 </template>

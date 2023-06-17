@@ -84,6 +84,6 @@
 import { ChevronDoubleDownIcon } from '@heroicons/vue/24/outline'
 const titulo = 'WELCOME TO'
 const contenido = computed(() => {
-    return  titulo.replace(/\S/g, "<span class='letra inline-block'>$&</span>")
+    return  titulo.replace(/\S/g, "<span class='letra inline-block opacity-0'>$&</span>")
 })
 </script>
