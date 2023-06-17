@@ -1,7 +1,7 @@
 <template>
     <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out duration-1000">
         <InicioHero v-show="isHome"></InicioHero>
-        <InicioMenu @back="salidaMenu" v-show="!isHome"></InicioMenu>
+        <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
     </main>
 </template>
 
@@ -10,7 +10,7 @@ import { useWindowScroll, useDebounceFn } from '@vueuse/core'
 const { y } = useWindowScroll()
 const { $anime } = useNuxtApp();
 const isHome = ref(true);
-
+const counterCredits = ref(0)
 // Animaciones
 const entradaHero = () => {
     isHome.value = true
@@ -157,6 +157,21 @@ const salidaMenu = () => {
     },0)
 }
 
+const animarPunto = () =>{
+    counterCredits.value++
+    $anime({
+        targets: '#punto',
+        translateY: [0, -5, 0],
+        duration:500,
+        easing: 'easeInOutBounce',
+        complete: ()=>{
+            if(counterCredits.value == 3){
+                alert('Pulsado 3 veces'),
+                counterCredits.value = 0
+            }
+        }
+    })
+}
 
 // Observamos Scroll
 watch(y, () => scroll())
