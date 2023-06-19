@@ -2,18 +2,24 @@
     <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">
         <InicioHero v-show="isHome"></InicioHero>
         <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
+        <InicioCredits v-show="showSecretMessage" @close="showSecretMessage = false"></InicioCredits>
     </main>
 </template>
 
 <script setup>
-import { useWindowScroll, useDebounceFn } from '@vueuse/core'
+// Usamos Windows scroll para calcular el swipe y el efecto bounce de los moviles
+import { useWindowScroll} from '@vueuse/core'
 const { y } = useWindowScroll()
+
+// Invocamos animejs y flag para saber si una animacion esta corriendo
 const { $anime } = useNuxtApp();
-const isHome = ref(true);
 const isAnimating = ref(false);
+
+// Variables de la pagina (Estado Inicial, Contador Creditos y Meta ThemeColor)
+const isHome = ref(true);
 const counterCredits = ref(0);
 const themeColor = ref(null)
-
+const showSecretMessage = ref(false)
 
 // Animaciones
 const entradaHero = () => {
@@ -105,16 +111,16 @@ const salidaHero = () => {
             targets: '.logo path',
             strokeDashoffset: [$anime.setDashoffset],
             easing: 'easeOutInSine',
-            delay: (el, i) => 320 * i,
+            delay: (el, i) => 150 * i,
             duration: 600,
         }, 500)
         .add({
             targets: 'main',
             backgroundColor: "#000",
             easing: 'easeInQuad',
-            duration: 2000,
+            duration: 500,
             complete: () => entradaMenu()
-        },0)
+        },'-=10')
 }
 
 const entradaMenu = () => {
@@ -160,26 +166,32 @@ const bgMove = () => {
 }
 
 const salidaMenu = () => {
-    $anime.timeline({duration:2000})
+    
+    $anime.timeline({duration:2500, complete:()=> entradaHero()})
     .add({
         begin: () => document.querySelector('.fondoMenu').classList.remove('duration-700', 'ease-in-out'),
         targets: ['.fondoMenu'],
-        backgroundPosition: '0% -100%',
+        // backgroundPosition: '0% -100%',
         opacity: [1,0],
         easing: 'linear',
     })
     .add({
-        targets: ['.enlaces .enlace', '.email', '.rrss', '.secundarios'],
+        targets: ['.enlaces .enlace'],
         opacity: [1, 0],
-        easing: 'linear',
+        easing: 'easeOutQuad',
+        duration:1000,
         delay: (el, i) => i * 250,
-    },0)
+    },500)
+    .add({
+        targets: ['.email', '.rrss', '.secundarios'],
+        opacity:[1,0],
+        easing: 'easeOutQuad',
+    },1000)
     .add({
         targets: '.separador',
         opacity: [0.4, 1],
         scaleX: ['100%', '0%'],
         easing: 'easeOutExpo',
-        complete: () => entradaHero()
     },0)
 }
 
@@ -187,13 +199,14 @@ const animarPunto = () =>{
     counterCredits.value++
     $anime({
         targets: '#punto',
-        translateY: [0, -5, 0],
+        translateY: [0, counterCredits.value * -10, 0],
+        scale: [1,counterCredits.value + 1,1],
         duration:500,
         easing: 'easeInOutBounce',
         complete: ()=>{
             if(counterCredits.value == 3){
-                alert('Pulsado 3 veces'),
-                counterCredits.value = 0
+                showSecretMessage.value = true,
+                counterCredits.value = 0;
             }
         }
     })
@@ -212,11 +225,11 @@ const scroll = () => {
 
 onMounted(() => {
 
-    // Save theme color meta tag on page load
+    // Updateamos ref con el obj de la meta etiqueta
     themeColor.value = document.querySelector('meta[name="theme-color"]')
 
+    // Lanzamos animacion de intro
     entradaHero()
-    // entradaMenu()
 })
 
 
