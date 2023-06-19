@@ -13,7 +13,6 @@
             </div>
 
             <!-- Enlaces -->
-
             <div class="flex flex-col mx-7 lg:ml-12">
                 <ul class="enlaces font-primary font-semibold text-5xl lg:text-7xl text-gray-200/50 flex flex-col">
                     <li v-for="enlace in Enlaces" :key="enlace.id" @mouseenter="cambiarColor(enlace.id)"
@@ -29,12 +28,8 @@
                 <div class="separador h-0.5 scale-x-0 bg-white origin-center transition-transform"></div>
                 <div class="pt-3 pb-3 px-3">
                     <div class="flex justify-between items-center">
-                        <div class="email">
-                            <a class="flex font-primary font-light items-center text-white text-xs">
-                                <EnvelopeIcon class="h-5 w-5 mr-2" />
-                                GET IN TOUCH
-                            </a>
-                        </div>
+                        <h5 class="font-display text-lg cursor-pointer text-white transition-transform hover:scale-105" @click="$emit('animarLogo')">Paric<span id="punto" class=" inline-block">.</span>io
+                        </h5>
                         <div class="rrss flex gap-4">
                             <a href="#" class="transition-all text-white hover:scale-125 origin-center hover:text-red-500 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 496 512"
@@ -64,8 +59,12 @@
                     </div>
 
                     <div class="secundarios flex justify-between items-center my-4 text-white">
-                        <h5 class="font-display text-sm cursor-pointer" @click="$emit('animarLogo')">Paric<span id="punto" class=" inline-block">.</span>io
-                        </h5>
+                        <div class="email">
+                            <a class="flex font-primary font-light items-center text-white text-xs">
+                                <EnvelopeIcon class="h-5 w-5 mr-2" />
+                                GET IN TOUCH
+                            </a>
+                        </div>
                         <p class="text-xs font-light font-primary">2018 - {{ new Date().getFullYear() }}. All rights reserved
                         </p>
                     </div>
@@ -103,39 +102,51 @@ const Enlaces = [
 ]
 
 const cambiarColor = (id) => {
-    const main = document.querySelector('main');
-    const fondo = document.querySelector('.fondoMenu')
+    const main = document.querySelector('main'),
+          fondo = document.querySelector('.fondoMenu'),
+          themeColor = document.querySelector('meta[name="theme-color"]');
+
     switch (id) {
         case 1:
-            main.style.backgroundColor = '#ef4444',
-                fondo.style.backgroundPosition = '0% -20%';
+                main.style.backgroundColor = '#ef4444',
+                themeColor.content = '#991b1b';
+                fondo.style.boxShadow = 'none';
+                fondo.style.backgroundSize = '20vmin 20vmin'
+                
             break
         case 2:
-            main.style.backgroundColor = '#172554',
-                fondo.style.backgroundPosition = '0% -50%';
+                main.style.backgroundColor = '#172554',
+                themeColor.content = '#172554';
+                fondo.style.boxShadow = 'none';
+                fondo.style.backgroundSize = '10vmin 10vmin'
+
             break
         case 3:
-            main.style.backgroundColor = '#1e1b4b',
-                fondo.style.backgroundPosition = '0% -100%';
+                main.style.backgroundColor = '#1e1b4b',
+                themeColor.content = '#312e81';
+                fondo.style.boxShadow = 'none';
+                fondo.style.backgroundSize = '5vmin 5vmin'
+
             break
         default:
             resetColor()
             break
     }
 }
+
 const resetColor = () => {
     document.querySelector('main').style = '',
-        document.querySelector('.fondoMenu').style = ''
+    document.querySelector('.fondoMenu').style = '',
+    document.querySelector('meta[name="theme-color"]').content = '#000';
 }
-
-
 </script>
 
-<style>.fondoMenu {
+<style>
+.fondoMenu {
     background: radial-gradient(rgba(2225, 255, 255, 0.1) 9%,
             transparent 9%);
     background-color: rgba(0, 0, 0, 0.342);
-    background-position: 0% 0%;
+    background-position: 10% 0%;
     background-size: 15vmin 15vmin;
-    /* box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 70%); */
+    box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 80%);
 }</style>

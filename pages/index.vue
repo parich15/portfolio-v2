@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out duration-1000">
+    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">
         <InicioHero v-show="isHome"></InicioHero>
         <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
     </main>
@@ -10,26 +10,32 @@ import { useWindowScroll, useDebounceFn } from '@vueuse/core'
 const { y } = useWindowScroll()
 const { $anime } = useNuxtApp();
 const isHome = ref(true);
-const counterCredits = ref(0)
+const isAnimating = ref(false);
+const counterCredits = ref(0);
+const themeColor = ref(null)
+
+
 // Animaciones
 const entradaHero = () => {
-    isHome.value = true
+    isHome.value = true,    
     $anime({
+        begin:()=> isAnimating.value = true,
         targets: 'main',
         backgroundColor: '#020617',
         easing: 'easeInQuad',
-        duration: 3000,
-        direction: 'normal'
+        duration: 1500,
+        complete: () => setTimeout(()=>themeColor.value.content = '#020617',480)
     })
 
-    $anime.timeline({ loop: false })
+    $anime
+    .timeline({ loop: false })
         .add({
             targets: '.heroWelcome .letra',
             opacity: [0, 1],
             translateZ: 0,
-            duration: 1000,
+            duration: 1200,
             easing: "easeInOutQuad",
-            delay: (el, i) => 150 * (i + 1),
+            delay: (el, i) => 200 * (i + 1),
             begin: () => document.querySelector('#Hero').style = ""
         }, '-=100')
         .add({
@@ -40,24 +46,28 @@ const entradaHero = () => {
             stroke: '#b91c1c',
             delay: (el, i) => 320 * i,
             direction: 'reverse',
-        }, 400)
+        }, 0)
         .add({
             targets: '.logo path',
             fill: '#b91c1c',
             delay: (el, i) => 250 * i,
             easing: 'easeInQuad'
-        }, 1500)
+        }, 1000)
         .add({
             targets: ['.location', '.swipeDown'],
             opacity: [0, 1],
             easing: 'linear',
             duration: 500
-        }, '-=100').add({
+        }, '-=100')
+        .add({
             targets: '.idiomas',
             opacity: [0, 1],
             easing: 'easeInQuad',
             duration: 500,
-            complete: () => document.querySelector('#Hero').classList.add('lg:h-[103vh]')
+            complete: () => {
+                document.querySelector('#Hero').classList.add('lg:h-[103vh]'),
+                isAnimating.value = false
+            }
         })
 
     $anime({
@@ -65,15 +75,20 @@ const entradaHero = () => {
         translateY: [0, -10, 0],
         direction: 'alternate',
         easing: 'linear',
-        duration: 400,
+        duration: 500,
         delay: 4200,
         loop: true
     })
 }
 
 const salidaHero = () => {
-    $anime.timeline({ loop: false })
-        .add({
+    $anime.timeline(
+        { 
+            loop: false,
+            begin: () => isAnimating.value = true,
+            complete: () => isAnimating.value = false
+        }
+        ).add({
             targets: ['.heroWelcome .letra', '.location', '.swipeDown', '.idiomas'],
             opacity: [1, 0],
             easing: 'easeOutQuad',
@@ -85,30 +100,33 @@ const salidaHero = () => {
             easing: 'easeOutCubic',
             delay: (el, i) => 250 * i,
             duration: 800
-        }, '-=200')
+        }, '-=300')
         .add({
             targets: '.logo path',
             strokeDashoffset: [$anime.setDashoffset],
             easing: 'easeOutInSine',
             delay: (el, i) => 320 * i,
             duration: 600,
-        }, 400)
+        }, 500)
         .add({
             targets: 'main',
             backgroundColor: "#000",
             easing: 'easeInQuad',
-            duration: 1400,
+            duration: 2000,
             complete: () => entradaMenu()
-        }, 2000)
+        },0)
 }
 
 const entradaMenu = () => {
-    isHome.value = false
+    isHome.value = false,
+    themeColor.value.content = '#000',
+
     $anime.timeline({ duration: 2500}).add({
         targets: '.fondoMenu',
         opacity: [0, 1],
-        backgroundPosition: ['0% 50%', '0% -10%'],
-        easing: 'easeInOutSine',
+        easing: 'linear',
+        duration:1000,
+        begin:()=> bgMove()
     })
     .add({
         targets: '.enlaces .enlace',
@@ -126,10 +144,18 @@ const entradaMenu = () => {
         targets: ['.email', '.rrss', '.secundarios'],
         opacity: [0, 1],
         easing: 'easeInSine',
-        duration: 1000,
-        complete: ()=> setTimeout(() => {
-            document.querySelector('.fondoMenu').classList.add('duration-700', 'ease-in-out')
-        }, 500)
+        duration: 1000
+    })
+}
+
+const bgMove = () => {
+    $anime({
+        targets: '.fondoMenu',
+        backgroundPosition: '10% 1000px',
+        duration: 99999,
+        easing: 'linear',
+        loop: true,
+        direction: 'alternate'
     })
 }
 
@@ -176,18 +202,21 @@ const animarPunto = () =>{
 // Observamos Scroll
 watch(y, () => scroll())
 const scroll = () => {
-    if (isHome.value != true) {
+    if (isHome.value == false || isAnimating.value == true) {
         return
     }
-    if (y.value > 20) {
-        salidaHero()
+    if (y.value > 20 && isAnimating.value == false) {
+       salidaHero()
     }
 }
 
 onMounted(() => {
-    // Fundido a negro on start
-    entradaHero()
-    // entradaMenu()
+
+    // Save theme color meta tag on page load
+    themeColor.value = document.querySelector('meta[name="theme-color"]')
+
+    // entradaHero()
+    entradaMenu()
 })
 
 

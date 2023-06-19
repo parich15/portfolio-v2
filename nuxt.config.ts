@@ -13,7 +13,7 @@ export default defineNuxtConfig({
       meta:[
         {
           name: 'theme-color', 
-          content: '#020617'
+          content: '#000'
         },
         {
           hid: 'og:url',
