@@ -146,7 +146,7 @@ const resetColor = () => {
     background: radial-gradient(rgba(2225, 255, 255, 0.1) 9%,
             transparent 9%);
     background-color: rgba(0, 0, 0, 0.342);
-    background-position: 10% 0%;
+    background-position: 0% 0%;
     background-size: 15vmin 15vmin;
     box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 80%);
 }</style>

@@ -151,7 +151,7 @@ const entradaMenu = () => {
 const bgMove = () => {
     $anime({
         targets: '.fondoMenu',
-        backgroundPosition: '10% 1000px',
+        backgroundPosition: '0 1000px',
         duration: 99999,
         easing: 'linear',
         loop: true,
@@ -215,8 +215,8 @@ onMounted(() => {
     // Save theme color meta tag on page load
     themeColor.value = document.querySelector('meta[name="theme-color"]')
 
-    // entradaHero()
-    entradaMenu()
+    entradaHero()
+    // entradaMenu()
 })
 
 
