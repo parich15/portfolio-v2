@@ -25,6 +25,20 @@
     }
   }
 
-html::-webkit-scrollbar{
+*::-webkit-scrollbar{
     display: none;
+}
+
+/* Transiciones */
+/* Creditos */
+.creditos-enter-from, .creditos-leave-to{
+    opacity: 0;
+    scale: 0;
+}
+.creditos-enter-to, .creditos-leave-from{
+    opacity: 1;
+    scale: 1;
+}
+.creditos-enter-active, .creditos-leave-active{
+    transition: all 500ms ease-in-out;
 }

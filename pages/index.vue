@@ -2,7 +2,9 @@
     <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">
         <InicioHero v-show="isHome"></InicioHero>
         <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
-        <InicioCredits v-show="showSecretMessage" @close="showSecretMessage = false"></InicioCredits>
+        <Transition name="creditos">
+            <InicioCredits v-show="showSecretMessage" @close="showSecretMessage = false"></InicioCredits>
+        </Transition>
     </main>
 </template>
 
@@ -200,8 +202,8 @@ const animarPunto = () =>{
     $anime({
         targets: '#punto',
         translateY: [0, counterCredits.value * -10, 0],
-        scale: [1,counterCredits.value + 1,1],
-        duration:500,
+        scale: [1,counterCredits.value * -2,1],
+        duration:800,
         easing: 'easeInOutBounce',
         complete: ()=>{
             if(counterCredits.value == 3){
