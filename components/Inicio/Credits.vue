@@ -22,10 +22,11 @@
                             <div class="grid grid-cols-2 gap-y-3 md:gap-y-5 mb-5">
                                 <a :href="tecnologia.url" target="_blank" v-for="tecnologia in poweredBy" :key="tecnologia.id">
                                      <p class="flex gap-3 justify-center text-xs md:text-base hover:scale-110 transition-transform duration-200 ease-in-out">
-                                        <img loading="lazy" :src="`assets/logos/${tecnologia.nombre.replace(/ /g,'')}.svg`" :alt="`Logo ${tecnologia.nombre}`" class="h-3 w-3 md:h-5 md:w-5">
+                                        <img loading="lazy" :src="`assets/logos/${tecnologia.svg}.svg`" :alt="`Logo ${tecnologia.nombre}`" class="h-3 w-3 md:h-5 md:w-5">
                                         {{tecnologia.nombre}}
                                     </p>
                                 </a>
+                                
                             </div>
 
                             <!-- Separador -->
@@ -51,21 +52,21 @@
                             <!-- Separador 2 -->
                             <hr class=" w-8/12 mx-auto opacity-10">
                             <h5 class="font-display text-sm opacity-50 mt-5 text-center mb-3 ">Special Thanks</h5>
-                            <div class="mx-4">
-                                <p class="text-xs text-center">
+                            <div class="mx-4 md:mx-12">
+                                <p class="text-xs text-center md:text-base">
                                     I want to thank to all my people who helped me during the development of this website and/or other projects:
                                 </p>
-                                <ul class="text-center text-xs mt-2">
-                                    <li>- My Parents</li>
-                                    <li class=" opacity-30 mb-3">For being always there</li>
-                                    <li>- My Gf Paola</li>
-                                    <li class=" opacity-30 mb-3">For supporting and loving me</li>
-                                    <li>- Ivan & Eric Martin</li>
-                                    <li class=" opacity-30 mb-3">For being the best mates</li>
-                                    <li>- Edu G.</li>
-                                    <li class=" opacity-30 mb-3">For being faithfull in me  always</li>
-                                    <li>- My Dog Milú</li>
-                                    <li class=" opacity-30 mb-3">'Cause he is a good boy</li>
+                                <ul class="text-center text-xs mt-2 md:mt-4 md:text-base">
+                                    <li>- My Parents 👨🏻‍👩🏻‍🧒🏻‍👦🏼</li>
+                                    <li class=" opacity-30 mb-3 md:mb-8">For being always there</li>
+                                    <li>- My Gf Paola 👰‍♀️</li>
+                                    <li class=" opacity-30 mb-3 md:mb-8">For supporting and loving me</li>
+                                    <li>- Ivan & Eric Martin 🔥</li>
+                                    <li class=" opacity-30 mb-3 md:mb-8">For being the best mates</li>
+                                    <li>- Eduardo G. 🤝</li>
+                                    <li class=" opacity-30 mb-3 md:mb-8">For being faithfull in me</li>
+                                    <li>- My Dog Milú 🐶</li>
+                                    <li class=" opacity-30 mb-3 md:mb-8">'Cause he is a good boy</li>
                                 </ul>
                             </div>
                         </div>
@@ -80,11 +81,11 @@
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 defineEmits(['close']);
 const poweredBy = [
-    {id:1,nombre:'Nuxt 3', url:'https://nuxt.com/'},
-    {id:2,nombre:'Anime Js', url:'https://animejs.com/'},
-    {id:3,nombre:'VueUse', url:'https://vueuse.org/'},
-    {id:4,nombre:'Tailwind Css', url:'https://tailwindcss.com/'},
-    {id:5,nombre:'Splide', url:'https://splidejs.com/'},
-    {id:6,nombre:'Netlify', url:'https://www.netlify.com/'},
+    {id:1,svg:'Nuxt3',nombre:'Nuxt 3', url:'https://nuxt.com/'},
+    {id:2,svg:'AnimeJs',nombre:'Anime Js', url:'https://animejs.com/'},
+    {id:3,svg:'VueUse',nombre:'VueUse', url:'https://vueuse.org/'},
+    {id:4,svg:'TailwindCss',nombre:'Tailwind Css', url:'https://tailwindcss.com/'},
+    {id:5,svg:'Splide',nombre:'Splide', url:'https://splidejs.com/'},
+    {id:6,svg:'Netlify',nombre:'Netlify', url:'https://www.netlify.com/'},
 ]
 </script>

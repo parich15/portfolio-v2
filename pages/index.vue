@@ -160,7 +160,7 @@ const bgMove = () => {
     $anime({
         targets: '.fondoMenu',
         backgroundPosition: '0 1000px',
-        duration: 99999,
+        duration: 70000,
         easing: 'linear',
         loop: true,
         direction: 'alternate'
@@ -199,11 +199,16 @@ const salidaMenu = () => {
 
 const animarPunto = () =>{
     counterCredits.value++
+    if(counterCredits.value > 3){
+        counterCredits.value = 0
+        return
+    }
     $anime({
         targets: '#punto',
         translateY: [0, counterCredits.value * -10, 0],
         scale: [1,counterCredits.value * -2,1],
         duration:800,
+        color: ['#fff', '#ef4444', '#fff'],
         easing: 'easeInOutBounce',
         complete: ()=>{
             if(counterCredits.value == 3){

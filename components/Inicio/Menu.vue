@@ -28,7 +28,7 @@
                 <div class="separador h-0.5 scale-x-0 bg-white origin-center transition-transform"></div>
                 <div class="pt-3 pb-3 px-3">
                     <div class="flex justify-between items-center">
-                        <h5 class=" secundarios font-display text-base cursor-pointer origin-bottom-left lg:origin-center transition-all ease-in-out duration-200 lg:hover:scale-110 lg:text-lg  text-white hover:scale-105 hover:animate-pulse" @click="$emit('animarLogo')">Paric<span id="punto" class=" inline-block">.</span>io
+                        <h5 class=" secundarios font-display text-base cursor-pointer origin-bottom-left lg:origin-center transition-all ease-in-out duration-200 lg:hover:scale-110 lg:text-lg  text-white hover:scale-105" @click="$emit('animarLogo')">Paric<span id="punto" class=" inline-block">.</span>io
                         </h5>
                         <div class="rrss flex gap-4">
                             <a href="#" class="transition-all text-white hover:scale-125 origin-center hover:text-red-500 ">
