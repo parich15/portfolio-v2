@@ -1,6 +1,6 @@
 <template>
     <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">
-        <InicioHero v-show="isHome"></InicioHero>
+        <InicioHero ref="hero" v-show="isHome"></InicioHero>
         <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
         <Transition name="creditos">
             <InicioCredits v-show="showSecretMessage" @close="showSecretMessage = false"></InicioCredits>
@@ -10,7 +10,7 @@
 
 <script setup>
 // Usamos Windows scroll para calcular el swipe y el efecto bounce de los moviles
-import { useWindowScroll} from '@vueuse/core'
+import { useWindowScroll , useSwipe } from '@vueuse/core'
 const { y } = useWindowScroll()
 
 // Invocamos animejs y flag para saber si una animacion esta corriendo
@@ -19,9 +19,11 @@ const isAnimating = ref(false);
 
 // Variables de la pagina (Estado Inicial, Contador Creditos y Meta ThemeColor)
 const isHome = ref(true);
+const hero = ref(null)
 const counterCredits = ref(0);
 const themeColor = ref(null)
 const showSecretMessage = ref(false)
+
 
 // Animaciones
 const entradaHero = () => {
@@ -229,6 +231,14 @@ const scroll = () => {
        salidaHero()
     }
 }
+const { direction } = useSwipe(hero,{
+    onSwipeEnd: (e, direction) => {
+        if(direction == 'up' && isAnimating.value == false){
+            salidaHero()
+        }
+    }
+})
+
 
 onMounted(() => {
 
