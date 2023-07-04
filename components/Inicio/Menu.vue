@@ -108,8 +108,8 @@ const cambiarColor = (id) => {
 
     switch (id) {
         case 1:
-                main.style.backgroundColor = '#ef4444',
-                themeColor.content = '#991b1b';
+                main.style.backgroundColor = '#020617',
+                themeColor.content = '#0f172a';
                 fondo.style.boxShadow = 'none';
                 fondo.style.backgroundSize = '20vmin 20vmin'
                 
