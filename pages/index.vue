@@ -1,7 +1,9 @@
 <template>
-    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">
+    <main class="bg-black overflow-hidden h-[calc(100dvh)] lg:h-full relative z-0 transition-colors ease-in-out">        
         <InicioHero ref="hero" v-show="isHome"></InicioHero>
+        
         <InicioMenu @back="salidaMenu" @animarLogo="animarPunto" v-show="!isHome"></InicioMenu>
+        
         <Transition name="creditos">
             <InicioCredits v-show="showSecretMessage" @close="showSecretMessage = false"></InicioCredits>
         </Transition>
@@ -11,15 +13,17 @@
 <script setup>
 // Usamos Windows scroll para calcular el swipe y el efecto bounce de los moviles
 import { useSwipe } from '@vueuse/core'
+import {indexTransition} from '../helpers/transitions/indexTransition'
+
 
 // Invocamos animejs y flag para saber si una animacion esta corriendo
 const { $anime } = useNuxtApp();
 const isAnimating = ref(false);
 
 // Variables de la pagina (Estado Inicial, Contador Creditos y Meta ThemeColor)
-const isHome = ref(true);
+const isHome = ref(true)
 const hero = ref(null)
-const counterCredits = ref(0);
+const counterCredits = ref(0)
 const themeColor = ref(null)
 const showSecretMessage = ref(false)
 
@@ -191,6 +195,7 @@ const salidaMenu = () => {
             easing: 'easeOutExpo',
         }, 0)
 }
+
 // Animaciones extra
 const bgMove = () => $anime({
     targets: '.fondoMenu',
@@ -246,7 +251,14 @@ onMounted(() => {
     themeColor.value = document.querySelector('meta[name="theme-color"]')
 
     // Lanzamos animacion de intro
-    entradaHero()
+    // entradaHero()
+
+    // debug
+    entradaMenu()
+})
+
+definePageMeta({
+    pageTransition: indexTransition
 })
 </script>
 

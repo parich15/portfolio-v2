@@ -18,7 +18,7 @@
                     <li v-for="enlace in Enlaces" :key="enlace.id" @mouseenter="cambiarColor(enlace.id)"
                         @mouseleave="resetColor"
                         class="opacity-1 enlace my-6 py-5 relative inline-block transition-all w-max before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-black/10 before:transition-all before:duration-500 hover:before:w-full hover:before:left-0 hover:before:bg-white/60 before:rounded-sm hover:scale-110 hover:text-white ">
-                        <a href="#">{{ enlace.texto }}</a>
+                        <NuxtLink :to="enlace.enlace">{{ enlace.texto }}</NuxtLink>
                     </li>
                 </ul>
             </div>
@@ -72,12 +72,12 @@
             </div>
         </div>
         <div class="fondoMenu transition-all absolute w-screen h-screen top-0 left-0 -z-10"></div>
-
     </div>
 </template>
 
 <script setup>
 import { ChevronDoubleLeftIcon, EnvelopeIcon } from '@heroicons/vue/24/outline';
+
 defineEmits(['back' , 'animarLogo']);
 
 const Enlaces = [

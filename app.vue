@@ -1,6 +1,7 @@
 <template>
-  <div class="overflow-hidden">
-    <NuxtPage />
-  </div>
+    <div>
+        <GlobalesLoader/>
+        <NuxtPage />
+    </div>
 </template>
 
